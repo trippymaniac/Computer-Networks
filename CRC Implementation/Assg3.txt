@@ -1,0 +1,32 @@
+Implement CRC 
+compute (m+k) bit error detecting code and keep this code till we get OK ack
+introducing errors 	random no.: r1
+		r1%2=0 dont make error
+		r1%2!=0 create error by flipping single bit
+		random no.: r2
+		r2%10 	(0 to 9) whichever no comes flip that bit
+if everything is fine send back ack "OK"
+if error send back "NAK" and go back to introducing error
+
+submission on 11/09/19
+
+Consider two machines a sender and a receiver. Implement CRC algorithm such that sender computes error detecting code using CRC and sends the data along with error detecting code to the receiver using socket. Receiver, after ensuring error free frame saves the ata.
+Program must perform the following:
+At Sender:
+	1) Read input from a file, n characters at atime.
+	2) Convert it into binary (this is m bits of data).
+	3) Using any standard generator polynomial (with degree k), 	compute error detecting code.
+	4) Send (m+k) bits to the receiver but before sending (m+k) bits, introduce error.
+	Introducing Error:
+1. Generate random number say r1, perform r1%2. If you get 0, do not introduce error and send original (m+k) bits. If you get a 1, introduce error. To decide which bit will be error, use next step.
+2. Generate another random number say r2, perform r2%(m+k). Outcome of the operation would be a number b/w 0 n (m+k-1). Assume you get a value i as the outcome. Flip the ith bit of m+k. Now send it to the receiver.
+
+At Receiver:
+	1) Receive (m+k) bits
+	2) Determine if it is error free. If yes extract data bits, convert it into character form and save it into output file. Send ack as OK. If not send NAK.
+
+at Sender:
+	1) If OK is received, proceed with next n characters. Othervise if NAk is received, follow step 4 of sender.
+
+Final Outcome:
+Ypur input and output file should match. Your output should clearly show how many frames were in error and how many reentries were done for each frame.    
